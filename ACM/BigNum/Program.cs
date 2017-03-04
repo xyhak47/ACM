@@ -34,17 +34,16 @@ namespace BigNum
             Console.ReadLine();
         }
 
-        static public class BigNum
+        static class BigNum
         {
-            static string result;
-
             public static string add(string left, string right)
             {
+                string result = "";
 
                 char[] left_num = left.ToCharArray();
                 char[] right_num = right.ToCharArray();
 
-                char[] theShort = left_num.Length > right_num.Length ? right_num : left_num;
+                char[] theShort = left_num.Length >= right_num.Length ? right_num : left_num;
                 char[] theLong = left_num.Length < right_num.Length ? right_num : left_num;
 
                 int maxLength = Math.Max(theShort.Length, theLong.Length);
@@ -56,22 +55,15 @@ namespace BigNum
                 {
                     int resultnum = int.Parse(theLong[theLong.Length - 1 - i].ToString());
 
-                    if (i < minLength)
-                    {
+                    if (i < minLength) 
                         resultnum += int.Parse(theShort[theShort.Length - 1 - i].ToString());
-                    }
-                    else  // directly copy
-                    {
-                        resultnum += nums[i];
-                    }
-
+   
+                    resultnum += nums[i];
                     nums[i + 1] += resultnum / 10;
                     nums[i] = resultnum % 10;
 
                     result = nums[i] + result;
                 }
-
-                Console.Write(left + "+" + right + "=" + result);
 
                 return result;
             }
